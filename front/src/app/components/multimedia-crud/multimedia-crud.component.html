@@ -1,0 +1,67 @@
+<div class="container mt-5">
+    <h2>Gestión de Multimedia</h2>
+  
+    <!-- Formulario para agregar nueva multimedia -->
+    <form (submit)="addMultimedia(); $event.preventDefault()" class="mb-4">
+      <div class="mb-3">
+        <label for="title" class="form-label">Título</label>
+        <input type="text" class="form-control" id="title" [(ngModel)]="newMultimedia.title" name="title" required>
+      </div>
+      <div class="mb-3">
+        <label for="description" class="form-label">Descripción</label>
+        <input type="text" class="form-control" id="description" [(ngModel)]="newMultimedia.description" name="description" required>
+      </div>
+      <div class="mb-3">
+        <label for="url" class="form-label">URL</label>
+        <input type="url" class="form-control" id="url" [(ngModel)]="newMultimedia.url" name="url" required>
+      </div>
+      <button type="submit" class="btn btn-primary">Agregar Multimedia</button>
+    </form>
+  
+    <!-- Listado de multimedia -->
+    <table class="table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Título</th>
+          <th>Descripción</th>
+          <th>URL</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let multimedia of multimediaList">
+          <td>{{ multimedia.id }}</td>
+          <td>{{ multimedia.title }}</td>
+          <td>{{ multimedia.description }}</td>
+          <td><a [href]="multimedia.url" target="_blank">{{ multimedia.url }}</a></td>
+          <td>
+            <button class="btn btn-warning btn-sm" (click)="edit(multimedia)">Editar</button>
+            <button class="btn btn-danger btn-sm" (click)="deleteMultimedia(multimedia.id)">Eliminar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  
+    <!-- Formulario para editar multimedia -->
+    <div *ngIf="editMultimedia">
+      <h3>Editar Multimedia</h3>
+      <form (submit)="updateMultimedia(); $event.preventDefault()">
+        <div class="mb-3">
+          <label for="editTitle" class="form-label">Título</label>
+          <input type="text" class="form-control" id="editTitle" [(ngModel)]="editMultimedia.title" name="editTitle" required>
+        </div>
+        <div class="mb-3">
+          <label for="editDescription" class="form-label">Descripción</label>
+          <input type="text" class="form-control" id="editDescription" [(ngModel)]="editMultimedia.description" name="editDescription" required>
+        </div>
+        <div class="mb-3">
+          <label for="editUrl" class="form-label">URL</label>
+          <input type="url" class="form-control" id="editUrl" [(ngModel)]="editMultimedia.url" name="editUrl" required>
+        </div>
+        <button type="submit" class="btn btn-success">Actualizar</button>
+        <button type="button" class="btn btn-secondary" (click)="cancelEdit()">Cancelar</button>
+      </form>
+    </div>
+  </div>
+  
